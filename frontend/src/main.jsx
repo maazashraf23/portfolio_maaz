@@ -108,11 +108,16 @@ function App() {
             const result = await response.json();
 
             if (!response.ok) {
-                setStatus('Please check the form fields.');
-                console.log(result);
+                console.log('SERVER ERROR:', result);
+
+                setStatus(
+                    result.message ||
+                    JSON.stringify(result.errors) ||
+                    'Server error'
+                );
+
                 return;
             }
-
             setStatus(result.message || 'Message sent successfully. Please check your email.');
 
             setFormData({
